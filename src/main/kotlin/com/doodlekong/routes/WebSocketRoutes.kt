@@ -1,9 +1,8 @@
 package com.doodlekong.routes
 
+import com.doodlekong.data.Player
 import com.doodlekong.data.Room
-import com.doodlekong.data.models.BaseModel
-import com.doodlekong.data.models.ChatMessage
-import com.doodlekong.data.models.DrawData
+import com.doodlekong.data.models.*
 import com.doodlekong.gson
 import com.doodlekong.other.getObjectType
 import com.doodlekong.server
@@ -15,10 +14,31 @@ import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.channels.consumeEach
 
+fun Route.webSocketRoutes() {
+    gameWebSocketRoute()
+}
+
 fun Route.gameWebSocketRoute() {
     route("/ws/draw") {
         standardWebSocket { socket, clientId, message, payload ->
             when (payload) {
+                is JoinRoomHandshake -> {
+                    val room = server.rooms[payload.roomName]
+                    if (room == null) {
+                        val gameError = GameError(GameError.ErrorType.ERROR_ROOM_NOT_FOUND)
+                        socket.send(Frame.Text(gson.toJson(gameError)))
+                        return@standardWebSocket
+                    }
+                    val player = Player(
+                        username = payload.username,
+                        socket = socket,
+                        clientId = clientId
+                    )
+                    server.playerJoined(player)
+                    if (!room.containsPlayer(player.username)) {
+                        room.addPlayer(player.clientId, player.username, player.socket)
+                    }
+                }
                 is DrawData -> {
                     val room = server.rooms[payload.roomName] ?: return@standardWebSocket
                     if (room.phase == Room.Phase.GAME_RUNNING) {
