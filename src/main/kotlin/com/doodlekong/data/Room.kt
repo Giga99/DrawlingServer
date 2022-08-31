@@ -1,6 +1,7 @@
 package com.doodlekong.data
 
 import com.doodlekong.data.models.Announcement
+import com.doodlekong.data.models.ChosenWord
 import com.doodlekong.data.models.PhaseChange
 import com.doodlekong.gson
 import io.ktor.websocket.*
@@ -11,9 +12,10 @@ class Room(
     val maxPlayers: Int,
     var players: List<Player> = listOf()
 ) {
-
     private var timerJob: Job? = null
     private var drawingPlayer: Player? = null
+    private var winningPlayers = listOf<String>()
+    private var word: String? = null
 
     private var phaseChangedListener: ((Phase) -> Unit)? = null
     var phase = Phase.WAITING_FOR_PLAYERS
@@ -110,6 +112,11 @@ class Room(
         return players.any { it.username == username }
     }
 
+    fun setWordAndSwitchToGameRunning(word: String) {
+        this.word = word
+        phase = Phase.GAME_RUNNING
+    }
+
     private fun waitingForPlayers() {
         GlobalScope.launch {
             val phaseChange = PhaseChange(
@@ -140,7 +147,20 @@ class Room(
     }
 
     private fun showWord() {
-
+        GlobalScope.launch {
+            if (winningPlayers.isEmpty()) {
+                drawingPlayer?.let {
+                    it.score -= PENALTY_NOBODY_GUESSED_IT
+                }
+            }
+            word?.let {
+                val chosenWord = ChosenWord(chosenWord = it, roomName = name)
+                broadcast(gson.toJson(chosenWord))
+            }
+            timeAndNotify(DELAY_SHOW_WORD_TO_NEW_ROUND)
+            val phaseChanged = PhaseChange(phase = Phase.SHOW_WORD, time = DELAY_SHOW_WORD_TO_NEW_ROUND)
+            broadcast(gson.toJson(phaseChanged))
+        }
     }
 
     enum class Phase {
@@ -158,5 +178,7 @@ class Room(
         const val DELAY_NEW_ROUND_TO_GAME_RUNNING = 20000L
         const val DELAY_GAME_RUNNING_TO_SHOW_WORD = 60000L
         const val DELAY_SHOW_WORD_TO_NEW_ROUND = 10000L
+
+        const val PENALTY_NOBODY_GUESSED_IT = 50
     }
 }
