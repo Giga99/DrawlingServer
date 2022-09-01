@@ -47,7 +47,13 @@ fun Route.gameWebSocketRoute() {
                     val room = server.rooms[payload.roomName] ?: return@standardWebSocket
                     if (room.phase == Room.Phase.GAME_RUNNING) {
                         room.broadcastToAllExcept(message, clientId)
+                        room.addSerializedDrawInfo(message)
                     }
+                }
+                is DrawAction -> {
+                    val room = server.getRoomWithClientId(clientId) ?: return@standardWebSocket
+                    room.broadcastToAllExcept(message, clientId)
+                    room.addSerializedDrawInfo(message)
                 }
                 is ChosenWord -> {
                     val room = server.rooms[payload.roomName] ?: return@standardWebSocket
@@ -61,6 +67,9 @@ fun Route.gameWebSocketRoute() {
                 }
                 is Ping -> {
                     server.players[clientId]?.receivedPong()
+                }
+                is DisconnectRequest -> {
+                    server.playerLeft(clientId = clientId, immediatelyDisconnect = true)
                 }
             }
         }
