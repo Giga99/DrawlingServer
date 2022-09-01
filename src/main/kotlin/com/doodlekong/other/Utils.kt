@@ -8,6 +8,7 @@ import com.doodlekong.other.Constants.TYPE_DRAW_DATA
 import com.doodlekong.other.Constants.TYPE_GAME_STATE
 import com.doodlekong.other.Constants.TYPE_JOIN_ROOM_HANDSHAKE
 import com.doodlekong.other.Constants.TYPE_PHASE_CHANGE
+import com.doodlekong.other.Constants.TYPE_PING
 import com.google.gson.JsonObject
 
 fun JsonObject.getObjectType() = when (get("type").asString) {
@@ -18,5 +19,6 @@ fun JsonObject.getObjectType() = when (get("type").asString) {
     TYPE_PHASE_CHANGE -> PhaseChange::class.java
     TYPE_CHOSEN_WORD -> ChosenWord::class.java
     TYPE_GAME_STATE -> GameState::class.java
+    TYPE_PING -> Ping::class.java
     else -> BaseModel::class.java
 }

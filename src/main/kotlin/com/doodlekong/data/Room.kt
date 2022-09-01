@@ -11,6 +11,7 @@ import io.ktor.websocket.*
 import kotlinx.coroutines.*
 import java.util.concurrent.ConcurrentHashMap
 
+@OptIn(DelicateCoroutinesApi::class)
 class Room(
     val name: String,
     val maxPlayers: Int,

@@ -37,6 +37,10 @@ fun Route.gameWebSocketRoute() {
                     server.playerJoined(player)
                     if (!room.containsPlayer(player.username)) {
                         room.addPlayer(player.clientId, player.username, player.socket)
+                    } else {
+                        val playerInRoom = room.players.find { it.clientId == clientId }
+                        playerInRoom?.socket = socket
+                        playerInRoom?.startPinging()
                     }
                 }
                 is DrawData -> {
@@ -54,6 +58,9 @@ fun Route.gameWebSocketRoute() {
                     if (!room.checkWordAndNotifyPlayers(payload)) {
                         room.broadcast(message)
                     }
+                }
+                is Ping -> {
+                    server.players[clientId]?.receivedPong()
                 }
             }
         }
