@@ -20,4 +20,7 @@ object Constants {
     const val TYPE_CUR_ROUND_DRAW_INFO = "TYPE_CUR_ROUND_DRAW_INFO"
 
     const val PING_FREQUENCY = 3000L
+
+    const val ACTION_UP = 1
+    const val ACTION_MOVED = 2
 }

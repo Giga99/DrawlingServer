@@ -2,6 +2,8 @@ package com.doodlekong.data
 
 import com.doodlekong.data.models.*
 import com.doodlekong.gson
+import com.doodlekong.other.Constants.ACTION_MOVED
+import com.doodlekong.other.Constants.ACTION_UP
 import com.doodlekong.other.getRandomWords
 import com.doodlekong.other.matchesWord
 import com.doodlekong.other.transformToUnderscores
@@ -29,6 +31,7 @@ class Room(
     private val leftPlayers = ConcurrentHashMap<String, Pair<Player, Int>>()
 
     private var curRoundDrawData: List<String> = emptyList()
+    var lastDrawData: DrawData? = null
 
     private var phaseChangedListener: ((Phase) -> Unit)? = null
     var phase = Phase.WAITING_FOR_PLAYERS
@@ -63,6 +66,15 @@ class Room(
 
     fun addSerializedDrawInfo(drawAction: String) {
         curRoundDrawData = curRoundDrawData + drawAction
+    }
+
+    private suspend fun finishOffDrawing() {
+        lastDrawData?.let {
+            if (curRoundDrawData.isNotEmpty() && it.motionEvent == ACTION_MOVED) {
+                val finishDrawData = it.copy(motionEvent = ACTION_UP)
+                broadcast(gson.toJson(finishDrawData))
+            }
+        }
     }
 
     suspend fun addPlayer(clientId: String, username: String, socket: WebSocketSession): Player {
@@ -167,8 +179,14 @@ class Room(
             }
             phase = when (phase) {
                 Phase.WAITING_FOR_START -> Phase.NEW_ROUND
-                Phase.NEW_ROUND -> Phase.GAME_RUNNING
-                Phase.GAME_RUNNING -> Phase.SHOW_WORD
+                Phase.NEW_ROUND -> {
+                    word = null
+                    Phase.GAME_RUNNING
+                }
+                Phase.GAME_RUNNING -> {
+                    finishOffDrawing()
+                    Phase.SHOW_WORD
+                }
                 Phase.SHOW_WORD -> Phase.NEW_ROUND
                 else -> Phase.WAITING_FOR_PLAYERS
             }
