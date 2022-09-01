@@ -2,8 +2,11 @@ package com.doodlekong.data
 
 import com.doodlekong.data.models.Announcement
 import com.doodlekong.data.models.ChosenWord
+import com.doodlekong.data.models.GameState
 import com.doodlekong.data.models.PhaseChange
 import com.doodlekong.gson
+import com.doodlekong.other.transformToUnderscores
+import com.doodlekong.other.words
 import io.ktor.websocket.*
 import kotlinx.coroutines.*
 
@@ -16,6 +19,7 @@ class Room(
     private var drawingPlayer: Player? = null
     private var winningPlayers = listOf<String>()
     private var word: String? = null
+    private var curWords: List<String>? = null
 
     private var phaseChangedListener: ((Phase) -> Unit)? = null
     var phase = Phase.WAITING_FOR_PLAYERS
@@ -143,7 +147,27 @@ class Room(
     }
 
     private fun gameRunning() {
-
+        winningPlayers = listOf()
+        val wordToSend = word ?: curWords?.random() ?: words.random()
+        val wordWithUnderscores = wordToSend.transformToUnderscores()
+        val drawingUsername = (drawingPlayer ?: players.random()).username
+        val gameStateForDrawingPlayer = GameState(
+            drawingPlayer = drawingUsername,
+            word = wordToSend
+        )
+        val gameStateForGuessingPlayers = GameState(
+            drawingPlayer = drawingUsername,
+            wordWithUnderscores
+        )
+        GlobalScope.launch {
+            broadcastToAllExcept(
+                message = gson.toJson(gameStateForGuessingPlayers),
+                clientId = drawingPlayer?.clientId ?: players.random().clientId
+            )
+            drawingPlayer?.socket?.send(Frame.Text(gson.toJson(gameStateForDrawingPlayer)))
+            timeAndNotify(DELAY_GAME_RUNNING_TO_SHOW_WORD)
+            println("Drawing phase in room $name started. It'll last ${DELAY_GAME_RUNNING_TO_SHOW_WORD / 1000}s")
+        }
     }
 
     private fun showWord() {
