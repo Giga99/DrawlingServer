@@ -88,7 +88,11 @@ fun Route.standardWebSocket(
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
-            // Handle disconnects
+            val playerWithClientId =
+                server.getRoomWithClientId(session.clientId)?.players?.find { it.clientId == session.clientId }
+            if (playerWithClientId != null) {
+                server.playerLeft(session.clientId)
+            }
         }
     }
 }
