@@ -2,8 +2,6 @@ package com.doodlekong.other
 
 import java.io.File
 
-val words = readWordList("src/main/resources/programmers_wordlist.txt")
-
 fun readWordList(fileName: String): List<String> {
     val inputStream = File(fileName).inputStream()
     val words = mutableListOf<String>()
@@ -12,11 +10,11 @@ fun readWordList(fileName: String): List<String> {
     return words
 }
 
-fun getRandomWords(amount: Int): List<String> {
+fun List<String>.getRandomWords(amount: Int): List<String> {
     var curAmount = 0
     val result = mutableListOf<String>()
     while (curAmount < amount) {
-        val word = words.random()
+        val word = this.random()
         if (!result.contains(word)) {
             result.add(word)
             curAmount++

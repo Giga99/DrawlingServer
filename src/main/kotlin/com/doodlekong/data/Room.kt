@@ -2,12 +2,9 @@ package com.doodlekong.data
 
 import com.doodlekong.data.models.*
 import com.doodlekong.gson
+import com.doodlekong.other.*
 import com.doodlekong.other.Constants.ACTION_MOVED
 import com.doodlekong.other.Constants.ACTION_UP
-import com.doodlekong.other.getRandomWords
-import com.doodlekong.other.matchesWord
-import com.doodlekong.other.transformToUnderscores
-import com.doodlekong.other.words
 import com.doodlekong.server
 import io.ktor.websocket.*
 import kotlinx.coroutines.*
@@ -17,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap
 class Room(
     val name: String,
     val maxPlayers: Int,
+    private val words: List<String>,
     var players: List<Player> = listOf()
 ) {
     private var timerJob: Job? = null
@@ -247,7 +245,7 @@ class Room(
 
     private fun newRound() {
         curRoundDrawData = listOf()
-        curWords = getRandomWords(3)
+        curWords = words.getRandomWords(3)
         val newWords = NewWords(curWords!!)
         nextDrawingPlayer()
         GlobalScope.launch {

@@ -1,10 +1,12 @@
 package com.doodlekong.routes
 
 import com.doodlekong.data.Room
+import com.doodlekong.data.WordList
 import com.doodlekong.data.models.BasicApiResponse
 import com.doodlekong.data.models.CreateRoomRequest
 import com.doodlekong.data.models.RoomResponse
 import com.doodlekong.other.Constants.MAX_ROOM_SIZE
+import com.doodlekong.other.readWordList
 import com.doodlekong.server
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -16,6 +18,7 @@ fun Route.roomRoutes() {
     createRoomRoute()
     getRoomsRoute()
     joinRoomRoute()
+    getAvailableWordListsRoute()
 }
 
 fun Route.createRoomRoute() {
@@ -49,8 +52,9 @@ fun Route.createRoomRoute() {
             }
 
             val room = Room(
-                roomRequest.name,
-                roomRequest.maxPlayers
+                name = roomRequest.name,
+                maxPlayers = roomRequest.maxPlayers,
+                words = readWordList("${WordList.WORDLIST_LOCATION}${roomRequest.wordList.toFileName()}")
             )
             server.rooms[roomRequest.name] = room
             println("Room created: ${roomRequest.name}")
@@ -115,6 +119,15 @@ fun Route.joinRoomRoute() {
                     call.respond(HttpStatusCode.OK, BasicApiResponse(true))
                 }
             }
+        }
+    }
+}
+
+fun Route.getAvailableWordListsRoute() {
+    route("/api/getAvailableWordLists") {
+        get {
+            val wordListResponse = WordList.values()
+            call.respond(HttpStatusCode.OK, wordListResponse)
         }
     }
 }
