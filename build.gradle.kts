@@ -37,12 +37,6 @@ dependencies {
     implementation("com.google.code.gson:gson:$gson_version")
 }
 
-ktor {
-    fatJar {
-        archiveFileName.set("fat.jar")
-    }
-}
-
-tasks {
-    create("stage").dependsOn("installDist")
+tasks.create("stage") {
+    dependsOn("installDist")
 }
