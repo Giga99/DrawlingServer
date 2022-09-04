@@ -36,3 +36,7 @@ dependencies {
     implementation("io.ktor:ktor-server-sessions:$ktor_version")
     implementation("com.google.code.gson:gson:$gson_version")
 }
+
+tasks {
+    create("stage").dependsOn("installDist")
+}
