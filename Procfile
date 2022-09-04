@@ -1,1 +1,1 @@
-web: ./build/install/ktor-doodlekong/bin/ktor-doodlekong
+web: java -jar build/libs/fat.jar

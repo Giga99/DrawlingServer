@@ -12,7 +12,7 @@ plugins {
 group = "com.example"
 version = "0.0.1"
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("com.doodlekong.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -35,6 +35,12 @@ dependencies {
 
     implementation("io.ktor:ktor-server-sessions:$ktor_version")
     implementation("com.google.code.gson:gson:$gson_version")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
 }
 
 tasks {
