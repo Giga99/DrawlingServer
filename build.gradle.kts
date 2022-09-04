@@ -9,8 +9,8 @@ plugins {
     id("io.ktor.plugin") version "2.1.0"
 }
 
-group = "com.example"
-version = "0.0.1"
+group = "com.doodlekong"
+version = "1.0.0"
 application {
     mainClass.set("com.doodlekong.ApplicationKt")
 
