@@ -1,1 +1,1 @@
-web: java -jar build/libs/com.doodlekong.doodlekongserver-all.jar
+web: ./build/install/com.doodlekong.doodlekongserver-shadow/bin/com.doodlekong.doodlekongserver
