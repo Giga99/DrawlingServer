@@ -3,10 +3,21 @@ val kotlin_version: String by project
 val logback_version: String by project
 val gson_version: String by project
 
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.github.jengelman.gradle.plugins:shadow:5.2.0")
+    }
+}
+
 plugins {
     application
     kotlin("jvm") version "1.7.10"
     id("io.ktor.plugin") version "2.1.0"
+    id("java")
+    id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 group = "com.doodlekong"
@@ -20,6 +31,7 @@ application {
 
 repositories {
     mavenCentral()
+    gradlePluginPortal()
 }
 
 dependencies {
@@ -37,6 +49,14 @@ dependencies {
     implementation("com.google.code.gson:gson:$gson_version")
 }
 
-tasks.create("stage") {
-    dependsOn("installDist")
+tasks {
+    create("stage") {
+        dependsOn("installDist")
+    }
+//    jar.enabled = false
+    shadowJar {
+        manifest {
+            attributes("Main-Class" to mainClasses)
+        }
+    }
 }
