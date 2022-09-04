@@ -9,7 +9,11 @@ val server = DrawingServer()
 val gson = Gson()
 
 fun main() {
-    embeddedServer(Netty, port = System.getenv("PORT").toInt(), host = "0.0.0.0") {
+    embeddedServer(
+        Netty,
+        port = if (System.getenv("PORT") != null) System.getenv("PORT").toInt() else 8000,
+        host = "0.0.0.0"
+    ) {
         configureSerialization()
         configureSockets()
         configureMonitoring()
