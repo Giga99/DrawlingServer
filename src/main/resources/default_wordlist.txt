@@ -405,7 +405,6 @@ Happy
 Lion King
 Nike
 Adidas
-Squidward
 Audi
 iPhone
 King Kong
@@ -444,3 +443,302 @@ Snoop Dogg
 Jump Rope
 Hamster
 Honeycomb
+Pac-Man
+Bow
+Apple
+Chest
+Six Pack
+Nail
+Tornado
+Mickey Mouse
+Lightning
+Traffic Light
+Waterfall
+McDonalds
+Donald Trump
+Patrick
+Stop Sign
+Superman
+Tooth
+Sunflower
+Keyboard
+Island
+Harry Potter
+Nintendo Switch
+Facebook
+Eyebrow
+Peppa Pig
+SpongeBob
+Creeper
+Octopus
+Church
+Tongue
+Snowflake
+Fish
+Twitter
+Pan
+Jesus Christ
+Butt Cheeks
+Jail
+Pepsi
+Hospital
+Pregnant
+Thunderstorm
+Smile
+Skull
+Flower
+Palm Tree
+Angry Birds
+America
+Lips
+Cloud
+Compass
+Mustache
+Captain America
+Pimple
+Easter Bunny
+Chicken
+Elmo
+Watch
+Prison
+Skeleton
+Arrow
+Volcano
+Minion
+School
+Tie
+Lighthouse
+Fountain
+Cookie Monster
+Iron Man
+Santa
+Blood
+River
+Bar
+Mount Everest
+Chest Hair
+Gumball
+North
+Water
+Cactus
+Treehouse
+Bridge
+Short
+Thumb
+Beach
+Mountain
+Nike
+Flag
+Paris
+Eyelash
+Shrek
+Brain
+Iceberg
+Fingernail
+Playground
+Ice Cream
+Google
+Dead
+Knife
+Spoon
+Spiderman
+Black
+Graveyard
+Elbow
+Golden Egg
+Yellow
+Germany
+Adidas
+Nose Hair
+Deadpool
+Homer Simpson
+Bart Simpson
+Rainbow
+Ruler
+Building
+Raindrop
+Storm
+Coffee Shop
+Windmill
+Fidget Spinner
+Yo-Yo
+Ice
+Legs
+Tent
+Mouth
+Ocean
+Fanta
+Homeless
+Tablet
+Muscle
+Pinocchio
+Tear
+Nose
+Snow
+Nostrils
+Olaf
+Belly button
+Car Wash
+Egypt
+Hello Kitty
+Pinky
+Winnie the Pooh
+Guitar
+Hulk
+Grinch
+Flag
+Pole
+Canada
+Rainforest
+Blue
+Rose
+Tree
+Mailbox
+Nemo
+Crab
+Knee
+Doghouse
+Chrome
+Cotton Candy
+Barack Obama
+Hot Chocolate
+Michael Jackson
+Map
+Samsung
+Shoulder
+Microsoft
+Parking
+Forest
+Full Moon
+Cherry Blossom
+Apple Seed
+Donald Duck
+Leaf
+Bate
+Italy
+Finger
+Seed
+Pad
+Brush
+Record
+Wrist
+Thunder
+Gummy
+Kirby
+Fire Hydrant
+Overweight
+Hot Dog
+House
+Fork
+Pink
+Sonic
+Street
+Nasa
+Arm
+Fast
+Tunnel
+Full
+Library
+Pet Shop
+Yoshi
+Russia
+Drum Kit
+Android
+Finn and Jake
+Price Tag
+Tooth Fairy
+Bus Stop
+Rain
+Heart
+Face
+Tower
+Bank
+Cheeks
+Batman
+Speaker
+Thor
+Skinny
+Electric Guitar
+Belly
+Cute
+Ice Cream Truck
+Bubble Gum
+Top Hat
+Pink Panther
+Hand
+Bald
+Freckles
+Clover
+Armpit
+Japan
+Thin
+Traffic
+Spaghetti
+Phineas and Ferb
+Broken Heart
+Finger
+Tip
+Funny
+Poisonous
+Wonder Woman
+Squid
+Ward
+Mark Zuckerberg
+China
+Dream
+Dora
+Daisy
+France
+Discord
+Toenail
+Positive
+Forehead
+Earthquake
+Iron
+Zeus
+Mercedes
+Big Ben
+Supermarket
+Bugs Bunny
+Yin and Yang
+Drink
+Rock
+Drum
+Piano
+White
+Bench
+Fall
+Royal
+Seashell
+Audi
+Stomach
+Aquarium
+Bitcoin
+Volleyball
+Marshmallow
+Cat Woman
+Underground
+Green Lantern
+Bottle Flip
+Toothbrush
+Globe
+Sand
+Zoo
+West
+Puddle
+Lobster
+North Korea
+Luigi
+Bamboo
+Great Wall
+Kim Jong-Un
+Bad
+Credit Card
+Swimming Pool
+Wolverine
+Head
+Hair
+Yoda
+Elsa
+Turkey
+Heel
